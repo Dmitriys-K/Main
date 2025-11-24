@@ -1,0 +1,13 @@
+body {
+    font-family: 'Play', sans-serif;
+    background:
+        linear-gradient(179.63deg, rgba(39, 135, 245, 0.18), rgba(163, 147, 245, 0.18) 100%),
+        linear-gradient(180.00deg,
+            rgba(0, 0, 0, 1),
+            rgba(39.3125, 35.70885467529297, 35.70885467529297, 0.7) 100%);
+    color: #ffffff;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    min-height: 100vh;
+}

@@ -1,0 +1,49 @@
+.about-film-details {
+    color: #fff;
+    /* background: #000; */
+    /* padding: 40px 0 0 80px; */
+    /* font-family: 'Arial Black', Arial, sans-serif; */
+}
+
+.about-film-details__title {
+    font-size: 40px;
+    font-weight: bold;
+    margin-bottom: 32px;
+}
+
+.about-film-details__list {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+    max-width: 600px;
+}
+
+.about-film-details__row {
+    display: flex;
+    align-items: center;
+    font-size: 18px;
+    font-weight: 400;
+    line-height: 24px;
+}
+
+.about-film-details__row span:first-child {
+    /* min-width: 220px; */
+    width: auto;
+}
+.about-film-details__row span:last-child {
+    /* max-width: 300px; */
+    /* flex: 2; */
+    /* width: fit-content;  */
+      width: 300px; /* фикс ширина для значения */
+    text-align: left;
+    
+}
+
+
+.about-film-details__dots {
+    flex:1;
+    border-bottom: 2px dotted #fff;
+    margin: 0 16px;
+    height: 1px;
+    /* max-width: 200px; */
+}

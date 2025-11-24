@@ -1,0 +1,39 @@
+.search-input {
+  box-sizing: border-box;
+  width: 100%;                
+  height: 40px;               
+  padding: 0 16px 0 44px;     
+  border: none;
+  border-radius: 8px;         
+  background-color:#383A3C;  
+  color: #e6e6e6;             
+  font-size: 18px;
+  line-height: 40px;
+  outline: none;
+  transition: box-shadow 0.15s ease, background-color 0.15s ease;
+  background-repeat: no-repeat;
+  background-position: 12px center;
+  background-size: 16px 16px;
+  /* маленькая тонкая тень/контур при фокусе */
+  box-shadow: inset 0 0 0 1px rgba(0,0,0,0.2);
+  /* вставляем SVG-иконку лупы как data URI (цвет светло-серый) */
+  background-image: url("../../../public/searchIcon.svg");
+}
+
+/* Плейсхолдер */
+.search-input::placeholder {
+  color: #9e9e9e; /* светло-серый */
+  opacity: 1;     /* чтобы цвет был точным во всех браузерах */
+}
+
+/* Фокус — подчеркнуть */
+.search-input:focus {
+  box-shadow: 0 0 0 2px rgba(99, 102, 241, 0.12), inset 0 0 0 1px rgba(0,0,0,0.25);
+  background-color: #2b2d2e;
+}
+
+/* Доступность: при дизейбле */
+.search-input:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}

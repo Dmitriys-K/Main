@@ -1,0 +1,75 @@
+.card {
+  position: relative;
+  width: 224px;
+  height: 336px;
+  /* border-radius: 12px; */
+  /* overflow: hidden; */
+  font-family: 'Arial Black', Arial, sans-serif;
+  background-color: #f0eee9;
+  text-align: center;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+  /* padding-bottom: 16px; */
+}
+
+.card-inner {
+  overflow: hidden;
+  /* border-radius: 12px; */
+}
+
+.number-circle {
+  position: absolute;
+  padding: 8px 24px 8px 24px;
+  top: -16px;
+  left: -16px;
+  background-color: #fff;
+  border-radius: 50px;
+  color: rgba(106, 93, 193, 1);
+  font-weight: 700;
+  font-size: 24px;
+}
+
+.card-image {
+  width: 100%;
+  display: block;
+}
+
+.card-title {
+  color: #bf983a;
+  font-weight: 900;
+  font-size: 24px;
+  margin: 12px 0 8px;
+  text-transform: uppercase;
+}
+
+.card-subtitle {
+  background-color: #f13a1f;
+  color: white;
+  font-weight: 700;
+  font-size: 14px;
+  display: inline-block;
+  padding: 4px 12px;
+  border-radius: 4px;
+  text-transform: uppercase;
+}
+
+.delete-button {
+  position: absolute;
+  top: -20px;
+  right: -20px;
+  background-color: white;
+  border: none;
+  color: black;
+  font-size: 32px;
+  /* font-weight: bold; */
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  cursor: pointer;
+  transition: opacity 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+  opacity: 0;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.25);
+}
+
+.card:hover .delete-button {
+  opacity: 1;
+}

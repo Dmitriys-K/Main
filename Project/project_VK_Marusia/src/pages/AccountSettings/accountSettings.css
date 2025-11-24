@@ -1,0 +1,91 @@
+/* accountInfo.css */
+.account-info {
+  /* рамка-подложка как на картинке */
+  /* border: 1px dashed rgba(255, 255, 255, 0.18); */
+  /* padding: 20px; */
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+  /* background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(0,0,0,0.06)); */
+  border-radius: 4px;
+  max-width: 880px; /* по желанию */
+}
+
+/* каждая строка: аватар + поле */
+.account-row {
+  display: flex;
+  align-items: center;
+}
+
+/* общий стиль для аватара */
+.avatar {
+  width: 64px;
+  height: 64px;
+  min-width: 64px;
+  border-radius: 50%;
+  /* background: linear-gradient(135deg, #7f8cff 0%, #5a6bd6 100%);  */
+  background: rgba(255, 255, 255, 0.5);
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 24px;
+  margin-right: 20px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.25);
+}
+
+/* вариант для иконки: серый круг, иконка внутри */
+.avatar--icon {
+  background: rgba(255, 255, 255, 0.5);
+  color: #d8dbe6;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* блок с подписью и значением */
+.account-field {
+  display: flex;
+  flex-direction: column;
+}
+
+/* маленькая подсказка над полем */
+.field-label {
+  font-size: 18px;
+  color: rgba(255,255,255,1);
+  margin-bottom: 6px;
+  letter-spacing: 0.2px;
+}
+
+/* крупное значение */
+.field-value {
+  font-size: 24px;
+  color: #ffffff;
+  font-weight: 800;
+  line-height: 1.1;
+  text-shadow: 0 1px 0 rgba(0,0,0,0.6);
+}
+
+/* отдельные классы, если нужно изменить стиль */
+.field-value.name {
+  font-size: 26px; /* имя крупнее, как на картинке */
+}
+
+.field-value.email {
+  font-size: 20px;
+ color: rgba(255,255,255,1);
+}
+
+.account-info button {
+  align-self: flex-start;
+  margin-top: 24px;
+}
+
+/* responsive */
+@media (max-width: 520px) {
+  .avatar { width: 52px; height: 52px; min-width: 52px; font-size: 16px; margin-right: 14px; }
+  .field-value.name { font-size: 20px; }
+  .field-value.email { font-size: 16px; }
+  .account-info { padding: 14px; gap: 12px; }
+}

@@ -1,0 +1,34 @@
+.raiting-block-container {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.raiting-block {
+    display: flex;
+    width: 47px;
+    height: 20px;
+    align-items: center;
+    gap: 8px;
+    padding: 2px 8px;
+    background-color:#308E21;
+    border-radius: 16px;
+    font-size: 12px;
+    font-weight: 700;
+    color: #FFFFFF;
+}
+
+.raiting-block--yellow {
+    background-color: #E2B93B;
+}
+.raiting-block--red {
+    background-color: #E03131;
+}
+.raiting-block--green {
+    background-color: #308E21;
+}
+
+.raiting-block--grey {
+    background-color: grey;
+}
+

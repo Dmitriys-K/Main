@@ -1,0 +1,32 @@
+.account-page {
+gap: 64px;
+  display: flex;
+  flex-direction: column;
+}
+
+
+.account-title {
+  font-weight: 700;
+  font-size: 48px;
+}
+
+.account-links {
+  display: flex;
+  gap: 64px;
+}
+
+.favorite {
+    background-image: url('../../../public/icon_favorite.svg');
+    background-repeat: no-repeat;
+    background-size: 24px 24px;
+    padding-left: 30px;
+    background-position: left center;
+}
+
+.settings {
+    background-image: url('../../../public/icon_user.svg');
+    background-repeat: no-repeat;
+    background-size: 24px 24px;
+    padding-left: 30px;
+    background-position: left center;
+}

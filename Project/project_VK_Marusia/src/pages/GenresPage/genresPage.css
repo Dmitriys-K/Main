@@ -1,0 +1,33 @@
+.GenresPage {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+   /* padding: 80px 0; */
+    /* background-color: #121212; */
+    min-height: 100vh;
+}
+
+.GenresPage__title {
+    color: rgba(255, 255, 255, 1);
+    margin: 0;
+    margin-bottom: 64px;
+
+font-family: Play;
+font-size: 48px;
+font-weight: 700;
+line-height: 56px;
+letter-spacing: 0%;
+text-align: left;
+}
+.GenresPage__list {
+    display: grid;
+    /* grid-template-columns: repeat(auto-fill, minmax(290px, 1fr));
+     */
+     grid-template-columns: 1fr 1fr 1fr 1fr;
+    column-gap: 40px;
+    row-gap: 64px;
+    align-items: center;
+    justify-content: flex-start;
+    padding-inline-start: 0;
+
+}
