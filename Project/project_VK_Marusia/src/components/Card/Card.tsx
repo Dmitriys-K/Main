@@ -1,4 +1,5 @@
 import React from 'react';
+
 import './card.css';
 import { Link } from 'react-router-dom';
 import { useSearch } from '../../hooks/UseSearch';
