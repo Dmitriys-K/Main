@@ -26,7 +26,7 @@ export const ButtonRefreshMovie: React.FC<Props> = ({
             type="button"
         >
             <img
-                src="../public/refresh.svg"
+                src="/refresh.svg"
                 alt="refresh"
                 className={rotating ? "refresh-icon rotating" : "refresh-icon"}
             />
