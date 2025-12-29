@@ -1,5 +1,5 @@
 import React from "react";
-import "./GenresCard.css";
+import "./genresCard.css";
 
 interface GenresCardProps {
     imageUrl: string;
