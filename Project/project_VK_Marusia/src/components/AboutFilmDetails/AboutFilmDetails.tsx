@@ -1,5 +1,5 @@
 import React from "react";
-import "./aboutFilmDetails.css";
+import "./AboutFilmDetails.css";
 
 interface AboutFilmDetailsProps {
     language?: string;
