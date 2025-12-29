@@ -16,10 +16,21 @@ interface CardProps {
 }
 
 const Card: React.FC<CardProps> = ({ imageUrl, title, raiting, id, showRating = true, deleteButton }) => {
-    const { setFavorites } = useSearch();
-    const handleClick = () => {
-        removeFavorite(Number(id));
-        setFavorites((prev) => prev.filter((item) => item.id !== id));
+    const { setFavorites, favorites } = useSearch();
+
+    const handleClick = async (e: React.MouseEvent) => {
+     
+        e.preventDefault();
+        e.stopPropagation();
+        console.log('clicked', id);
+        const numericId = Number(id);
+       try {
+           await removeFavorite(numericId);
+            setFavorites((prev) => prev.filter((item) => Number(item.id) !== numericId));
+            console.log('favorites after remove', favorites);
+        } catch (err) {
+            console.error('Failed to remove favorite', err);
+        }
     };
     const titleWithoutSpaces = title ? title.replace(/\s+/g, '_') : '';
     return (
@@ -31,7 +42,7 @@ const Card: React.FC<CardProps> = ({ imageUrl, title, raiting, id, showRating = 
                 </div>
             </Link>
             {deleteButton && (
-                <button className="delete-button" onClick={handleClick}>
+                <button type="button" className="delete-button" onClick={handleClick} aria-label="Удалить из избранного">
                     &times;
                 </button>
             )}

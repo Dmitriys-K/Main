@@ -77,6 +77,7 @@ export const AboutFilm: React.FC<AboutFilmProps> = ({
             });
         } else {
             await removeFavorite(movie?.id);
+            setFavorites((prev) => prev.filter((item) => Number(item.id) !== movie?.id));
             setUserProfile((prev: UserProfile | null) => {
                 if (!prev || !id) return prev;
                 const favoritesSet = new Set(prev.favorites || []);
