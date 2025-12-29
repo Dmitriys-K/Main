@@ -1,6 +1,6 @@
 import React from 'react'
 
-import './RaitingBlock.css'
+import './raitingBlock.css'
 
 
 interface RaitingBlockProps {
