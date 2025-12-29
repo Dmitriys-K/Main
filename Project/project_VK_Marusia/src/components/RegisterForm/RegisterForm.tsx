@@ -2,7 +2,7 @@ import { FC, useEffect, useState } from 'react';
 import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
-import './RegisterForm.css';
+import './registerForm.css';
 import { createUser } from '../../api/createUser';
 import { loginUser } from '../../api/loginUser';
 import { getUserProfile } from '../../api/getUserProfile';
