@@ -1,0 +1,258 @@
+:root {
+  height: 100vh;
+  font-family: Arial, sans-serif;
+  --bg: #ffffff;
+  --card-bg: #e8e4ef;
+  --primary: #333bce;
+  --primary-hover: #2f328e;
+  --text: #383838;
+  --muted: #615252;
+}
+
+#root {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  max-width: 1280px;
+  margin: 0 auto;
+  /* padding: 1rem; */
+  text-align: center;
+  padding: 1rem;
+  background: var(--bg);
+}
+
+.TodoApp {
+  border-radius: 8px;
+  width: 100%;
+  max-width: 800px;
+  display: flex ;
+  flex-direction: column;
+  align-items: center;
+  padding: 1rem;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  background-color : var(--bg);
+  color: var(--text);
+}
+
+.TodoApp h1 {
+  margin: 0;
+  margin-bottom: 1rem;
+}
+
+
+.TodoApp ul {
+  width: 100%;
+  list-style-type: none;
+  padding: 0;
+}
+
+.todoInputContainer {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  gap: 0.5rem;
+  border-radius: 4px;
+  overflow: hidden;
+
+}
+
+.todoList {
+  width: 100%;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+
+}
+.title-h3 {
+  text-align: left;
+  margin: 1rem 0 0.5rem 0;
+  color: var(--text);
+}
+
+
+.todoItem {
+  display: flex;
+  min-height: 4rem;
+  text-align: left;
+  align-items: center;
+  gap: 12px;
+  padding: 8px;
+  position: relative;
+    background: var(--card-bg);
+    border-radius: 4px;
+}
+
+/* .todoItem:hover {
+  background-color: #e0dcdc;
+} */
+
+.todoItem.completed {
+  background-color: #b3f5b3;
+}
+
+.todoCheckbox {
+  width: 16px;
+  height: 16px;
+  cursor: pointer;
+}
+
+.todoDate {
+  color: var(--muted);
+  font-size: 16px;
+  position: absolute;
+  top: 2px;
+  right: 4px;
+}
+
+.todoText {
+  
+  flex: 1 1 0;       
+  min-width: 0;    
+  white-space: normal;
+  overflow-wrap: anywhere; 
+  word-break: break-word;
+}
+
+.todoText.completed {
+  text-decoration: line-through;
+}
+
+
+
+.TodoApp label {
+  display: flex;
+  align-items: center;
+  border: 1px solid #ccc;
+}
+
+.datePicker {
+  width: 100%;
+  padding: 1rem 3rem !important;
+  font-size: 1.2rem;
+  border: none;
+  outline: none;
+  background:var(--card-bg) !important;
+  color: var(--muted) !important;
+  box-sizing: border-box;
+  cursor: pointer;
+}
+
+.datePicker:hover {
+  background-color: #e0dcdc;
+
+}
+
+.large-calendar {
+  font-size: 1.1rem;
+}
+
+/* Заголовок, месяц */
+.large-calendar .react-datepicker__header {
+  padding: 14px 12px;
+}
+.large-calendar .react-datepicker__current-month {
+  font-size: 1.4rem;
+  /* margin-bottom: 8px; */
+}
+.large-calendar .react-datepicker__navigation {
+  top: 14px;
+  right: 100px;
+}
+
+.large-calendar .react-datepicker__time-container .react-datepicker__time  ul.react-datepicker__time-list li {
+  padding: 8px 12px;
+  font-size: 1.4rem;
+}
+
+.large-calendar .react-datepicker-time__header {
+  font-size: 1.4rem;
+  /* padding: 5px 12px; */
+} 
+
+.large-calendar .react-datepicker-time__container {
+width: 100px;
+
+} 
+
+ .large-calendar .react-datepicker__time-box  {
+width: 100px;  
+}
+
+
+.todoInput {
+  flex: 1;
+  box-sizing: border-box;
+  padding: 1rem 1rem;
+  font-size: 1.2rem;
+  border: none;
+  outline: none;
+  background: var(--card-bg);
+  color: var(--text);
+  cursor: pointer;
+}
+
+.todoInput::placeholder {
+  color: var(--muted);
+}
+
+
+.todoInput:hover {
+  background-color: #e0dcdc;
+}
+
+
+
+.AddTodoButton {
+  padding: 1rem 3rem;
+  font-size: 1.2rem;
+  border: none; 
+  outline: none;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+    background-color: var(--primary);
+}
+
+.AddTodoButton:hover {
+  background-color: var(--primary-hover);
+  color: white;
+  outline: none;
+}
+
+/* .AddTodoButton:active {
+  background-color: #3840e6;
+  color: white;
+  outline: none;
+} */
+
+.AddTodoButton:active {
+  /* transform: translateY(2px); */
+    transform: translate3d(1px, 1px, 0);
+}
+
+
+.AddTodoButton:focus,
+.AddTodoButton:focus-visible {
+  outline: none;
+  
+  
+}
+
+.TodoApp .inputLabel {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  padding: 0.45rem 0.6rem;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  cursor: pointer;
+  background-color: transparent;
+  box-sizing: border-box;
+}
+
