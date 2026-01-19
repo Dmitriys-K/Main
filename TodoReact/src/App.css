@@ -219,10 +219,12 @@ width: 100px;
     background-color: var(--primary);
 }
 
-.AddTodoButton:hover {
-  background-color: var(--primary-hover);
-  color: white;
-  outline: none;
+@media (hover: hover) and (pointer: fine) {
+  .AddTodoButton:hover {
+    background-color: var(--primary-hover);
+    color: white;
+    outline: none;
+  }
 }
 
 /* .AddTodoButton:active {

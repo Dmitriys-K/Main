@@ -30,7 +30,7 @@ function App() {
   const [date, setDate] = useState<string>(new Date().toISOString())
   // const[calendarOpen, setCalendarOpen] = useState<boolean>(false);
   
-
+ 
   const addTodoHandler = () => {
     if (text.trim() === '') return;
 
@@ -87,10 +87,18 @@ function App() {
     return acc;
   }, {});
 
-  const sortedGroupedTodos = Object.keys(groupedTodos).sort().reduce<Record<string, Todo[]>>((acc, key) => {
+
+  const sortedGroupedTodos = Object.keys(groupedTodos).sort((a, b) => {
+    const dateA = a === 'no-date' ? new Date(0) : new Date(a.split('.').reverse().join(','));
+    const dateB = b === 'no-date' ? new Date(0) : new Date(b.split('.').reverse().join(','));
+   
+    return dateA.getTime() - dateB.getTime();
+  }).reduce<Record<string, Todo[]>>((acc, key) => {
     acc[key] = groupedTodos[key];
     return acc;
   }, {});
+
+  
 
 
 
@@ -145,7 +153,11 @@ function App() {
           <li key={date}>
             <h3 className='title-h3'>{date}</h3>
             <ul className='todoList'>
-              {todos.map((todo) => (
+              {todos.sort((a, b) => {
+                const dateA = a.date ? new Date(a.date) : new Date(0);
+                const dateB = b.date ? new Date(b.date) : new Date(0);
+                return dateA.getTime() - dateB.getTime();
+              }).map((todo) => (
 
                 <li className={`todoItem ${todo.completed ? 'completed' : ''}`} key={todo.id}>
                   <span className='todoDate'>{todo.date ? `${todo.date.getHours() < 10 ? `0${todo.date.getHours()}` : todo.date.getHours()}:${todo.date.getMinutes() < 10 ? `0${todo.date.getMinutes()}` : todo.date.getMinutes()}` : 'no time'}</span>
