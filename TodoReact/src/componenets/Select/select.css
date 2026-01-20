@@ -1,0 +1,34 @@
+
+.select__control {
+  background-color: var(--bg )!important;
+  border: var(--border) !important;
+min-height: 48px!important;
+    /* color: var(--text)!important; */
+}
+
+.select__menu {
+  background-color: var(--bg )!important;
+  color: var(--text)!important;
+}
+
+.select__option--is-focused {
+  background: #216ba5!important;
+    color: #fff !important;
+}
+
+.select__option--is-selected {
+  background: #e6f0ff !important;
+  color: #216ba5!important;
+}
+
+.select__placeholder {
+  color: var(--muted)!important;
+
+}
+
+.select__single-value  {
+  color: var(--text)!important;
+  text-align: start !important;
+}
+
+

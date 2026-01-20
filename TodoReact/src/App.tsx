@@ -3,12 +3,16 @@ import DatePicker from 'react-datepicker';
 import { subDays } from 'date-fns';
 import {ru} from 'date-fns/locale';
 import 'react-datepicker/dist/react-datepicker.css';
+
 import { v4 as uuidv4 } from 'uuid';
 import './App.css'
+import {SelectComponent} from './componenets/Select/Select';
+import type { Option } from './componenets/Select/Select';
 
 export interface Todo {
   id: string
   text: string
+  priority: Option | null
   completed: boolean
   date?: Date | null
 }
@@ -26,9 +30,19 @@ function App() {
       return [];
     }
   })
+  const options: Option[] = [
+    { value: 'Макияж', label: 'Макияж' },
+    { value: 'Макияж и укладка', label: 'Макияж и укладка' },
+    { value: 'Брови', label: 'Брови' },
+    { value: 'Брови и ресницы', label: 'Брови и ресницы' },
+    { value: 'Ресницы', label: 'Ресницы' },
+  ];
+
   const [text, setText] = useState<string>('')
   const [date, setDate] = useState<string>(new Date().toISOString())
-  // const[calendarOpen, setCalendarOpen] = useState<boolean>(false);
+  const [selectedOption, setSelectedOption] = useState<Option | null>(null);
+
+
   
  
   const addTodoHandler = () => {
@@ -45,6 +59,7 @@ function App() {
     const newTodo: Todo = {
       id: uuidv4(),
       text: text.trim(),
+      priority: selectedOption,
       completed: false,
       date: dateObj
     };
@@ -88,16 +103,39 @@ function App() {
   }, {});
 
 
-  const sortedGroupedTodos = Object.keys(groupedTodos).sort((a, b) => {
-    const dateA = a === 'no-date' ? new Date(0) : new Date(a.split('.').reverse().join(','));
-    const dateB = b === 'no-date' ? new Date(0) : new Date(b.split('.').reverse().join(','));
+  // const sortedGroupedTodos = Object.keys(groupedTodos).sort((a, b) => {
+
+  //   const dateA = a === 'no-date' ? new Date(0) : new Date(a.split('.').reverse().join(','));
+  //   const dateB = b === 'no-date' ? new Date(0) : new Date(b.split('.').reverse().join(','));
    
+  //   return dateA.getTime() - dateB.getTime();
+  // }).reduce<Record<string, Todo[]>>((acc, key) => {
+  //   acc[key] = groupedTodos[key];
+  //   return acc;
+  // }, {});
+const sortedGroupedTodos = Object.keys(groupedTodos)
+  .sort((a, b) => {
+    const parse = (s: string) => {
+      if (s === 'no-date') return new Date(0);
+      const [dStr, mStr, yStr] = s.split('.');
+      const d = Number(dStr);
+      const m = Number(mStr);
+      const y = Number(yStr);
+
+    
+      if (!Number.isFinite(d) || !Number.isFinite(m) || !Number.isFinite(y)) return new Date(0);
+      return new Date(y, m - 1, d);
+    };
+
+    const dateA = parse(a);
+    const dateB = parse(b);
+
     return dateA.getTime() - dateB.getTime();
-  }).reduce<Record<string, Todo[]>>((acc, key) => {
+  })
+  .reduce<Record<string, Todo[]>>((acc, key) => {
     acc[key] = groupedTodos[key];
     return acc;
   }, {});
-
   
 
 
@@ -106,8 +144,9 @@ function App() {
     <div className="TodoApp">
       <h1>Список дел</h1>
       <div className='todoInputContainer'>
+
+     
         <DatePicker
-       
           selected={date ? new Date(date) : null}
           onChange={(date) => setDate(date ? date.toISOString() : '')}
           className='datePicker'
@@ -124,6 +163,12 @@ function App() {
           //  inputProps={{ readOnly: true, inputMode: 'none' }}
           customInputRef=''
 />
+   <SelectComponent
+          options={options}
+          value={selectedOption}
+          onChange={setSelectedOption}
+         
+        />
 
         <input
           className='todoInput'
@@ -162,7 +207,10 @@ function App() {
                 <li className={`todoItem ${todo.completed ? 'completed' : ''}`} key={todo.id}>
                   <span className='todoDate'>{todo.date ? `${todo.date.getHours() < 10 ? `0${todo.date.getHours()}` : todo.date.getHours()}:${todo.date.getMinutes() < 10 ? `0${todo.date.getMinutes()}` : todo.date.getMinutes()}` : 'no time'}</span>
                   <input className="todoCheckbox" type="checkbox" checked={todo.completed} onChange={() => toggleTodoHandler(todo.id)} />
-                  <span className={`todoText ${todo.completed ? 'completed' : ''}`}>{todo.text}</span>
+                  <div className='todoTextContainer'>
+                    <span className="todoPriority">{todo.priority ? `${todo.priority.label} ` : ''}</span>
+                      <span className={`todoText ${todo.completed ? 'completed' : ''}`}>{todo.text}</span>
+                  </div>
                   <span style={{ color: 'red', cursor: 'pointer', fontSize: '32px' }} onClick={() => removeTodoHandler(todo.id)}>&times;</span>
                 </li>
               ))}
