@@ -1,10 +1,10 @@
 import React from 'react';
-import './Button.css';
+import './button.css';
 
 export interface ButtonProps {
     variant?: 'primary' | 'secondary';
     onClick?: () => void;
-    children: React.ReactNode;
+    children: React.ReactNode
 }
 
 const Button: React.FC<ButtonProps> = (props) => {
