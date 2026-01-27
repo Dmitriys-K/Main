@@ -1,9 +1,10 @@
 :root {
-  height: 100vh;
-  font-family: Arial, sans-serif;
+  /* height: 100vh;
+  font-family: Arial, sans-serif; */
   --bg: #ffffff;
   --card-bg: #e8e4ef;
   --primary: #333bce;
+  --secondary: #6c757d;
   --primary-hover: #2f328e;
   --text: #383838;
   --muted: #615252;
@@ -13,10 +14,10 @@
 }
 
 #root {
-  display: flex;
+  /* display: flex;
   flex-direction: column;
   justify-content: center;
-  align-items: center;
+  align-items: center; */
   width: 100%;
   max-width: 1280px;
   margin: 0 auto;
@@ -24,6 +25,7 @@
   /* text-align: center; */
   padding: 1rem;
   background: var(--bg);
+  height: 100%;
 }
 
 .TodoApp {
@@ -40,9 +42,19 @@
   font-size: var(--fontSize);
 }
 
+.header {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
 .TodoApp h1 {
   margin: 0;
   margin-bottom: 1rem;
+  font-size: 2.2rem;
+  
 }
 
 
@@ -50,6 +62,17 @@
   width: 100%;
   list-style-type: none;
   padding: 0;
+}
+
+@media (max-width: 380px) {
+  .TodoApp {
+    padding: 0.5rem;
+
+
+  }
+  .TodoApp h1 {
+    font-size: 1.8rem; 
+}
 }
 
 .todoInputContainer {
@@ -143,6 +166,7 @@
   color: var(--primary-hover);
   font-size: 1rem;
 }
+
 .TodoApp label {
   display: flex;
   align-items: center;
@@ -163,7 +187,7 @@
   cursor: pointer;
 }
 
- .react-datepicker__input-container .react-datepicker__calendar-icon {  
+.react-datepicker__input-container .react-datepicker__calendar-icon {
   padding: 0.8rem;
 }
 
@@ -173,12 +197,14 @@
 }
 
 .large-calendar {
-  font-size: 1.1rem;
+  font-size: 1.05rem;
+  /* max-width: 100% !important; */
 }
 
 /* Заголовок, месяц */
 .large-calendar .react-datepicker__header {
-  padding: 14px 12px;
+  padding: 14px 4px;
+
 }
 
 .large-calendar .react-datepicker__current-month {
@@ -193,7 +219,7 @@
 
 .large-calendar .react-datepicker__time-container .react-datepicker__time ul.react-datepicker__time-list li {
   padding: 8px 12px;
-  font-size: 1.4rem;
+  font-size: 1.1rem;
 }
 
 .large-calendar .react-datepicker-time__header {
@@ -202,7 +228,7 @@
 }
 
 .large-calendar .react-datepicker-time__container {
-  width: 100px;
+  width: 90px;
 
 }
 
@@ -210,6 +236,10 @@
   width: 100px;
 }
 
+.react-datepicker__time-container .react-datepicker__time .react-datepicker__time-box {
+  /* overflow-y: auto; */
+  width: 85px;
+}
 
 .todoInput {
   min-height: 48px;
@@ -236,46 +266,7 @@
 
 
 
-.AddTodoButton {
-  padding: 1rem 3rem;
-  font-size: 1.2rem;
-  border: none;
-  outline: none;
-  cursor: pointer;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  color: white;
-  background-color: var(--primary);
-  border-radius: 4px;
-}
 
-@media (hover: hover) and (pointer: fine) {
-  .AddTodoButton:hover {
-    background-color: var(--primary-hover);
-    color: white;
-    outline: none;
-  }
-}
-
-/* .AddTodoButton:active {
-  background-color: #3840e6;
-  color: white;
-  outline: none;
-} */
-
-.AddTodoButton:active {
-  /* transform: translateY(2px); */
-  transform: translate3d(1px, 1px, 0);
-}
-
-
-.AddTodoButton:focus,
-.AddTodoButton:focus-visible {
-  outline: none;
-
-
-}
 
 .TodoApp .inputLabel {
   display: flex;

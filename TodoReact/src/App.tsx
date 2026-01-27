@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import DatePicker from 'react-datepicker';
 import { subDays } from 'date-fns';
+import { format } from 'date-fns';
 import { ru } from 'date-fns/locale';
 import 'react-datepicker/dist/react-datepicker.css';
 import { motion, AnimatePresence } from 'framer-motion';
@@ -8,6 +9,9 @@ import { v4 as uuidv4 } from 'uuid';
 import './App.css'
 import { SelectComponent } from './componenets/Select/Select';
 import type { Option } from './componenets/Select/Select';
+import Button from './componenets/Button/Button';
+import { ConfirmModal } from './componenets/ConfirmModal/ConfirmModal';
+
 
 export interface Todo {
   id: string
@@ -101,6 +105,10 @@ function App() {
 
   }
 
+  const removeAllTodosHandler = () => {
+    setTodos([]);
+    localStorage.removeItem('todos');
+  }
 
   const groupedTodos = todos.reduce<Record<string, Todo[]>>((acc, todo) => {
     const key = todo.date ? todo.date.toLocaleDateString().slice(0, 10) : 'no-date';
@@ -136,14 +144,28 @@ function App() {
       return acc;
     }, {});
 
-
+  const parseGroupKeyToDate = (key: string): Date | null => {
+    if (key === 'no-date') return null;
+    const parts = key.split('.');
+    if (parts.length !== 3) return null;
+    const [dStr, mStr, yStr] = parts;
+    const d = Number(dStr), m = Number(mStr), y = Number(yStr);
+    if (!Number.isFinite(d) || !Number.isFinite(m) || !Number.isFinite(y)) return null;
+    return new Date(y, m - 1, d);
+  };
 
 
   return (
     <div className="TodoApp">
-      <h1>Список дел</h1>
+      <header className='header'>
+        <h1>Список дел</h1>
+        <ConfirmModal onDelete={removeAllTodosHandler} title="Вы уверены, что хотите удалить все задачи?">
+             <span style={{ color: 'red', cursor: 'pointer', fontSize: '32px', transform: 'translateY(-10px)' }}>&times;</span>
+         
+        </ConfirmModal>
+      </header>
+    
       <div className='todoInputContainer'>
-
 
         <DatePicker
           selected={date ? new Date(date) : null}
@@ -159,8 +181,8 @@ function App() {
           timeFormat='HH:mm'
           minDate={subDays(new Date(), 0)}
           calendarClassName='large-calendar'
-          //  inputProps={{ readOnly: true, inputMode: 'none' }}
           customInputRef=''
+                // calendarStartDay={1}
         />
         <SelectComponent
           options={options}
@@ -177,33 +199,36 @@ function App() {
           value={text}
           onChange={(e) => setText(e.target.value)}
         />
+        <Button onClick={addTodoHandler} variant="primary">Добавить</Button>
 
-        <button className='AddTodoButton' type='button'
-          onClick={() => {
-            setTimeout(() => {
-              addTodoHandler();
-            }, 0);
-          }}
-
-        >
-          Добавить
-        </button>
       </div>
       <ul>
         <AnimatePresence initial={true}>
           {Object.entries(sortedGroupedTodos).map(([date, todos]) => (
             <motion.li
-            layout
+              layout
               className='groupWrapper'
               key={date}
-              initial={{ opacity: 0, x: -6}}
+              initial={{ opacity: 0, x: -6 }}
               animate={{ opacity: 1, x: 0 }}
               exit={{ opacity: 0, x: -6 }}
               transition={{ duration: 0.25 }}
-              // style={{ transformOrigin: 'top' }}
+            // style={{ transformOrigin: 'top' }}
             >
 
-              <h3 className='title-h3'>{date}</h3>
+              {/* <h3 className='title-h3'>{date}</h3> */}
+              <h3 className='title-h3'>
+                {date}
+                {date !== 'no-date' && (() => {
+                  const d = parseGroupKeyToDate(date);
+                  const weekday = d ? format(d, 'EEEE', { locale: ru }) : '';
+                  return (
+                    <span style={{ marginLeft: 8, color: 'var(--primary-hover)', fontSize: '0.8em', fontStyle: 'italic'}}>
+                      {weekday}
+                    </span>
+                  );
+                })()}
+              </h3>
               <ul className='todoList'>
                 <AnimatePresence initial={true}>
                   {todos.sort((a, b) => {
@@ -212,21 +237,26 @@ function App() {
                     return dateA.getTime() - dateB.getTime();
                   }).map((todo) => (
                     <motion.li
+                      // layout
                       className={`todoItem ${todo.completed ? 'completed' : ''}`}
                       key={todo.id}
-                      layout
-                      initial={{ opacity: 0, x: -6 }}
-                      animate={{ opacity: 1, x: 0 }}
-                      exit={{ opacity: 0, x: -6 }}
+                      initial={{ opacity: 0, scale: 0 }}
+                      animate={{ opacity: 1, scale: 1 }}
+                      exit={{ opacity: 0, scale: 0 }}
                       transition={{ duration: 0.25 }}
                     >
+
+                          
                       <span className='todoDate'>{todo.date ? `${todo.date.getHours() < 10 ? `0${todo.date.getHours()}` : todo.date.getHours()}:${todo.date.getMinutes() < 10 ? `0${todo.date.getMinutes()}` : todo.date.getMinutes()}` : 'no time'}</span>
                       <input className="todoCheckbox" type="checkbox" checked={todo.completed} onChange={() => toggleTodoHandler(todo.id)} />
                       <div className='todoTextContainer'>
                         <span className="todoPriority">{todo.priority ? `${todo.priority.label} ` : ''}</span>
                         <span className={`todoText ${todo.completed ? 'completed' : ''}`}>{todo.text}</span>
                       </div>
-                      <span style={{ color: 'red', cursor: 'pointer', fontSize: '32px' }} onClick={() => removeTodoHandler(todo.id)}>&times;</span>
+                      <ConfirmModal task={{ id: todo.id }} onDelete={removeTodoHandler} >
+                            <span style={{ color: 'red', cursor: 'pointer', fontSize: '32px' }}>&times;</span>
+                          </ConfirmModal>
+                       {/* <span style={{ color: 'red', cursor: 'pointer', fontSize: '32px' }} onClick={() => removeTodoHandler(todo.id)}>&times;</span> */}
                     </motion.li>
                   ))}
                 </AnimatePresence>
@@ -237,61 +267,7 @@ function App() {
 
         </AnimatePresence>
       </ul>
-      {/* <ul>
-  <AnimatePresence>
-    {Object.entries(sortedGroupedTodos).map(([date, todos]) => (
-      <li key={date} className="groupWrapper">
-        <h3 className="title-h3">{date}</h3>
 
-        <AnimatePresence>
-          {todos.length > 0 && (
-            <motion.ul
-              className="todoList groupContent"
-              initial={{ opacity: 0, scaleY: 0 }}
-              animate={{ opacity: 1, scaleY: 1 }}
-              exit={{ opacity: 0, scaleY: 0 }}
-              transition={{ duration: 1 }}
-              style={{ transformOrigin: 'top' }}
-            >
-              {todos
-                .sort((a, b) => {
-                  const dateA = a.date ? new Date(a.date) : new Date(0);
-                  const dateB = b.date ? new Date(b.date) : new Date(0);
-                  return dateA.getTime() - dateB.getTime();
-                })
-                .map((todo) => (
-                  <motion.li
-                    className={`todoItem ${todo.completed ? 'completed' : ''} ${todo.removing ? 'removing' : ''}`}
-                    key={todo.id}
-                    layout
-                    initial={{ opacity: 0, y: -6 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    exit={{ opacity: 0, y: -6 }}
-                    transition={{ duration: 1 }}
-                  >
-                   
-                    <span className="todoDate">
-                      {todo.date
-                        ? `${todo.date.getHours() < 10 ? `0${todo.date.getHours()}` : todo.date.getHours()}:${todo.date.getMinutes() < 10 ? `0${todo.date.getMinutes()}` : todo.date.getMinutes()}`
-                        : 'no time'}
-                    </span>
-                    <input className="todoCheckbox" type="checkbox" checked={todo.completed} onChange={() => toggleTodoHandler(todo.id)} />
-                    <div className="todoTextContainer">
-                      <span className="todoPriority">{todo.priority ? `${todo.priority.label} ` : ''}</span>
-                      <span className={`todoText ${todo.completed ? 'completed' : ''}`}>{todo.text}</span>
-                    </div>
-                    <span style={{ color: 'red', cursor: 'pointer', fontSize: '32px' }} onClick={() => removeTodoHandler(todo.id)}>
-                      &times;
-                    </span>
-                  </motion.li>
-                ))}
-            </motion.ul>
-          )}
-        </AnimatePresence>
-      </li>
-    ))}
-  </AnimatePresence>
-</ul> */}
       {todos.length === 0 && <p>Список дел пуст. Добавьте новое дело!</p>}
     </div>
 
